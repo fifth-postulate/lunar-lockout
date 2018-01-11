@@ -5,7 +5,7 @@ A solver for [lunar lockout][lunar].
 We will determine the game tree and seek a solution.
 
 ### Number of Positions
-Below is a tabulation of the number of possible positions, without taking symmetry into account. The numbers are calculated with the [stars-and-bars][start-bars] method.
+Below is a tabulation of the number of possible positions, without taking symmetry into account. The numbers are calculated with the [stars-and-bars][stars-bars] method.
 
 | #Robots | #tableux       | #Positions        |
 |---------|----------------|-------------------|
