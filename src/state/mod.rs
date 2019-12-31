@@ -1,3 +1,3 @@
-pub mod robot;
-pub mod direction;
 pub mod command;
+pub mod direction;
+pub mod robot;

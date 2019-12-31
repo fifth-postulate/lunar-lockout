@@ -1,7 +1,7 @@
-use super::robot::Robot;
 use super::direction::Compass;
+use super::robot::Robot;
 
 pub struct Command {
-	robot: Robot,
-	direction: Compass,
+    robot: Robot,
+    direction: Compass,
 }
