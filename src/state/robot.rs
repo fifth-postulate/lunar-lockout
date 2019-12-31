@@ -1,3 +1,4 @@
+#[derive(PartialEq, Eq, Hash, Debug)]
 pub enum Robot {
     Red,
     Orange,

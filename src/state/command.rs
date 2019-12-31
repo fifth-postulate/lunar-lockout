@@ -1,7 +1,12 @@
-use super::direction::Compass;
-use super::robot::Robot;
+use crate::state::{direction::Compass, robot::Robot};
 
 pub struct Command {
-    robot: Robot,
-    direction: Compass,
+    pub robot: Robot,
+    pub direction: Compass,
+}
+
+impl From<(Robot, Compass)> for Command {
+    fn from((robot, direction): (Robot, Compass)) -> Self {
+        Self { robot, direction }
+    }
 }
