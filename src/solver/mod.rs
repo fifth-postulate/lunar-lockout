@@ -31,7 +31,8 @@ where
     }
 }
 
-impl<T> From<(Robot, Position<T>)> for Target<T> where 
+impl<T> From<(Robot, Position<T>)> for Target<T>
+where
     T: PartialEq
         + Eq
         + PartialOrd

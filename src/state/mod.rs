@@ -79,7 +79,7 @@ mod tests {
 
     #[test]
     fn the_options_correspond_with_legal_moves() {
-         let configuration = Configuration::from(vec![
+        let configuration = Configuration::from(vec![
             (Robot::Red, Position::from((0, 2))),
             (Robot::Yellow, Position::from((3, 2))),
         ]);
