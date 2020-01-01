@@ -1,5 +1,6 @@
 use crate::state::{direction::Compass, robot::Robot};
 
+#[derive(PartialEq, Eq, Hash, Debug)]
 pub struct Command {
     pub robot: Robot,
     pub direction: Compass,

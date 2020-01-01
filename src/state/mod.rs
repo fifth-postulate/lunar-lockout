@@ -76,4 +76,17 @@ mod tests {
 
         assert_eq!(actual, Err(Error::IllegalMove));
     }
+
+    #[test]
+    fn the_options_correspond_with_legal_moves() {
+         let configuration = Configuration::from(vec![
+            (Robot::Red, Position::from((0, 2))),
+            (Robot::Yellow, Position::from((3, 2))),
+        ]);
+        let options = configuration.options();
+
+        assert_eq!(options.len(), 2);
+        assert!(options.contains(&Command::from((Robot::Red, Compass::East))));
+        assert!(options.contains(&Command::from((Robot::Yellow, Compass::West))));
+    }
 }

@@ -1,6 +1,6 @@
 use crate::state::{
     command::Command,
-    direction::{Moveable, Reachable},
+    direction::{Moveable, Reachable, Compass},
     position::{Absolutable, Decrementable, Incrementable, Position},
     robot::Robot,
 };
@@ -64,6 +64,24 @@ where
         } else {
             Err(Error::RobotNotInConfiguration)
         }
+    }
+
+    pub fn options(&self) -> Vec<Command> {
+        let mut options: Vec<Command> = Vec::new();
+        for (robot, start) in self.robots.iter() {
+            for direction in vec![Compass::North, Compass::East, Compass::South, Compass::West] {
+                let count = self
+                    .robots
+                    .iter()
+                    .filter(|(r, _)| robot != *r)
+                    .filter(|(_, post)| (start, &direction).reaches(post))
+                    .count();
+                if count > 0 {
+                    options.push(Command::from((*robot, direction)));
+                }
+            }
+        }
+        options
     }
 }
 

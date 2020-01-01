@@ -1,5 +1,6 @@
 use crate::state::position::{Absolutable, Position};
 
+#[derive(PartialEq, Eq, Hash, Debug)]
 pub enum Compass {
     North,
     East,
