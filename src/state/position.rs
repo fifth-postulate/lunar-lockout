@@ -1,23 +1,44 @@
 use crate::state::direction::{Compass, Moveable};
-use std::ops::Sub;
+use std::cmp::{Ord, Ordering};
+use std::ops::{Add, Sub};
 
-#[derive(PartialEq, Eq, Hash, PartialOrd, Ord, Copy, Clone, Debug)]
+#[derive(PartialEq, Eq, Hash, Copy, Clone, Debug)]
 pub struct Position<T>(pub T, pub T)
 where
-    T: PartialEq + Eq + PartialOrd + Ord;
+    T: PartialEq + Eq + PartialOrd + Ord + Absolutable;
 
 impl<T> From<(T, T)> for Position<T>
 where
-    T: PartialEq + Eq + PartialOrd + Ord,
+    T: PartialEq + Eq + PartialOrd + Ord + Absolutable,
 {
     fn from((x, y): (T, T)) -> Self {
         Self(x, y)
     }
 }
 
+impl<T> Ord for Position<T>
+where
+    T: PartialEq + Eq + PartialOrd + Ord + Absolutable + Add<Output = T>,
+{
+    fn cmp(&self, other: &Self) -> Ordering {
+        let left = self.0.absolute() + self.1.absolute();
+        let right = other.0.absolute() + other.1.absolute();
+        left.cmp(&right)
+    }
+}
+
+impl<T> PartialOrd for Position<T>
+where
+    T: PartialEq + Eq + PartialOrd + Ord + Absolutable + Add<Output = T>,
+{
+    fn partial_cmp(&self, other: &Self) -> Option<Ordering> {
+        Some(self.cmp(other))
+    }
+}
+
 impl<T> Sub<Position<T>> for Position<T>
 where
-    T: PartialEq + Eq + PartialOrd + Ord + Sub<Output = T>,
+    T: PartialEq + Eq + PartialOrd + Ord + Absolutable + Sub<Output = T>,
 {
     type Output = Self;
 
@@ -28,7 +49,15 @@ where
 
 impl<T> Moveable for Position<T>
 where
-    T: PartialEq + Eq + PartialOrd + Ord + Copy + Clone + Incrementable + Decrementable,
+    T: PartialEq
+        + Eq
+        + PartialOrd
+        + Ord
+        + Copy
+        + Clone
+        + Absolutable
+        + Incrementable
+        + Decrementable,
 {
     fn move_to(&self, direction: &Compass) -> Self {
         match direction {
@@ -48,6 +77,10 @@ pub trait Decrementable {
     fn decrement(&self) -> Self;
 }
 
+pub trait Absolutable {
+    fn absolute(&self) -> Self;
+}
+
 impl Incrementable for i64 {
     fn increment(&self) -> Self {
         self + 1i64
@@ -57,5 +90,11 @@ impl Incrementable for i64 {
 impl Decrementable for i64 {
     fn decrement(&self) -> Self {
         self - 1i64
+    }
+}
+
+impl Absolutable for i64 {
+    fn absolute(&self) -> Self {
+        self.abs()
     }
 }

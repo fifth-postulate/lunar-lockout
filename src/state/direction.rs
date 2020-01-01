@@ -1,4 +1,4 @@
-use crate::state::position::Position;
+use crate::state::position::{Absolutable, Position};
 
 pub enum Compass {
     North,
@@ -16,27 +16,6 @@ impl Compass {
             Compass::West => Compass::East,
         }
     }
-
-    pub fn before(&self, (x, y): &(usize, usize)) -> Option<(usize, usize)> {
-        match *self {
-            Compass::North => {
-                if *y > 0 {
-                    Some((*x, *y - 1))
-                } else {
-                    None
-                }
-            }
-            Compass::East => {
-                if *x > 0 {
-                    Some((*x - 1, *y))
-                } else {
-                    None
-                }
-            }
-            Compass::South => Some((*x, *y + 1)),
-            Compass::West => Some((*x + 1, *y)),
-        }
-    }
 }
 
 pub trait Reachable<T> {
@@ -45,7 +24,7 @@ pub trait Reachable<T> {
 
 impl<T> Reachable<Position<T>> for (&Position<T>, &Compass)
 where
-    T: PartialEq + Eq + PartialOrd + Ord,
+    T: PartialEq + Eq + PartialOrd + Ord + Absolutable,
 {
     fn reaches(&self, target: &Position<T>) -> bool {
         match *self {

@@ -28,7 +28,7 @@ mod tests {
             actual,
             Configuration::from(vec![
                 (Robot::Red, Position::from((2, 2))),
-                (Robot::Yellow, Position::from((3, 2)))
+                (Robot::Yellow, Position::from((3, 2))),
             ])
         );
     }
@@ -41,6 +41,27 @@ mod tests {
         let actual = configuration.perform(&command);
 
         assert_eq!(actual, Err(Error::RobotNotInConfiguration));
+    }
+
+    #[test]
+    fn the_nearest_robot_stops_the_command() {
+        let configuration = Configuration::from(vec![
+            (Robot::Red, Position::from((5, 2))),
+            (Robot::Yellow, Position::from((3, 2))),
+            (Robot::Orange, Position::from((0, 2))),
+        ]);
+        let command = Command::from((Robot::Red, Compass::West));
+
+        let actual = configuration.perform(&command).expect("a configuration");
+
+        assert_eq!(
+            actual,
+            Configuration::from(vec![
+                (Robot::Red, Position::from((4, 2))),
+                (Robot::Yellow, Position::from((3, 2))),
+                (Robot::Orange, Position::from((0, 2)))
+            ])
+        );
     }
 
     #[test]

@@ -1,23 +1,23 @@
 use crate::state::{
     command::Command,
     direction::{Moveable, Reachable},
-    position::{Decrementable, Incrementable, Position},
+    position::{Absolutable, Decrementable, Incrementable, Position},
     robot::Robot,
 };
 use std::collections::HashMap;
-use std::ops::Sub;
+use std::ops::{Add, Sub};
 
 #[derive(PartialEq, Debug)]
 pub struct Configuration<T>
 where
-    T: PartialEq + Eq + PartialOrd + Ord,
+    T: PartialEq + Eq + PartialOrd + Ord + Absolutable,
 {
     robots: HashMap<Robot, Position<T>>,
 }
 
 impl<T> From<Vec<(Robot, Position<T>)>> for Configuration<T>
 where
-    T: PartialEq + Eq + PartialOrd + Ord,
+    T: PartialEq + Eq + PartialOrd + Ord + Absolutable,
 {
     fn from(locations: Vec<(Robot, Position<T>)>) -> Self {
         let mut robots = HashMap::new();
@@ -38,6 +38,8 @@ where
         + Copy
         + Clone
         + Sub<Output = T>
+        + Add<Output = T>
+        + Absolutable
         + Incrementable
         + Decrementable,
 {
