@@ -1,6 +1,6 @@
 use crate::state::{
     command::Command,
-    direction::{Moveable, Reachable, Compass},
+    direction::{Compass, Moveable, Reachable},
     position::{Absolutable, Decrementable, Incrementable, Position},
     robot::Robot,
 };
@@ -82,6 +82,10 @@ where
             }
         }
         options
+    }
+
+    pub fn robot_at(&self, robot: &Robot, position: &Position<T>) -> bool {
+        self.robots.get(robot) == Some(position)
     }
 }
 
