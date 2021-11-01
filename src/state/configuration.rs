@@ -53,8 +53,8 @@ where
                 .map(|(_, post)| post)
                 .map(|post| post.move_to(&command.direction.opposite()))
                 .collect::<Vec<Position<T>>>();
-            candidates.sort_by(|left, right| (*left - *start).cmp(&(*right - *start)));
-            if let Some(stop) = candidates.iter().next() {
+            candidates.sort_by_key(|left| (*left - *start));
+            if let Some(stop) = candidates.get(0) {
                 let mut robots: HashMap<Robot, Position<T>> = self.robots.clone();
                 robots.insert(command.robot, *stop);
                 Ok(Self { robots })

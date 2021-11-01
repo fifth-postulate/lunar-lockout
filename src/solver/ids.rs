@@ -13,6 +13,12 @@ pub struct IterativeDeepening {
     maximum_depth: Depth,
 }
 
+impl Default for IterativeDeepening {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+
 impl IterativeDeepening {
     pub fn new() -> Self {
         Self::from(Depth::Infinite)
