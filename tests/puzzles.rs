@@ -253,7 +253,6 @@ mod intermediate {
         assert!(solution.is_some())
     }
 
-    #[ignore]
     #[test]
     fn p14() {
         let configuration = Configuration::from(vec![
@@ -532,7 +531,6 @@ mod advanced {
         assert!(solution.is_some())
     }
 
-    #[ignore]
     #[test]
     fn p30() {
         let configuration = Configuration::from(vec![
@@ -541,7 +539,7 @@ mod advanced {
             (Robot::Orange, Position::from((0, 3))),
             (Robot::Green, Position::from((4, 3))),
             (Robot::Purple, Position::from((0, 2))),
-            (Robot::Blue, Position::from((0, 3))),
+            (Robot::Blue, Position::from((3, 0))),
         ]);
         let target = Target::from((Robot::Red, Position::from((2, 2))));
         let solver = IterativeDeepening::from(Depth::Finite(11));
