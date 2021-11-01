@@ -11,6 +11,165 @@ use lunarlockout::{
     },
 };
 
+mod preflight {
+    use super::*;
+    #[test]
+    fn p01() {
+        let configuration = Configuration::from(vec![
+            (Robot::Red, Position::from((2, 4))),
+            (Robot::Orange, Position::from((2, 1))),
+        ]);
+        let target = Target::from((Robot::Red, Position::from((2, 2))));
+        let solver = IterativeDeepening::from(Depth::Finite(2));
+
+        let solution = solver.solve(&configuration, &target);
+
+        assert!(solution.is_some());
+    }
+    #[test]
+    fn p02() {
+        let configuration = Configuration::from(vec![
+            (Robot::Red, Position::from((4, 0))),
+            (Robot::Orange, Position::from((4, 3))),
+            (Robot::Green, Position::from((1, 2))),
+        ]);
+        let target = Target::from((Robot::Red, Position::from((2, 2))));
+        let solver = IterativeDeepening::from(Depth::Finite(3));
+
+        let solution = solver.solve(&configuration, &target);
+
+        assert!(solution.is_some())
+    }
+
+    #[test]
+    fn p03() {
+        let configuration = Configuration::from(vec![
+            (Robot::Red, Position::from((0, 2))),
+            (Robot::Orange, Position::from((3, 4))),
+            (Robot::Green, Position::from((3, 1))),
+        ]);
+        let target = Target::from((Robot::Red, Position::from((2, 2))));
+        let solver = IterativeDeepening::from(Depth::Finite(3));
+
+        let solution = solver.solve(&configuration, &target);
+
+        assert!(solution.is_some())
+    }
+
+    #[test]
+    fn p04() {
+        let configuration = Configuration::from(vec![
+            (Robot::Red, Position::from((0, 3))),
+            (Robot::Orange, Position::from((2, 3))),
+            (Robot::Green, Position::from((3, 1))),
+            (Robot::Purple, Position::from((1, 0))),
+        ]);
+        let target = Target::from((Robot::Red, Position::from((2, 2))));
+        let solver = IterativeDeepening::from(Depth::Finite(5));
+
+        let solution = solver.solve(&configuration, &target);
+
+        assert!(solution.is_some());
+    }
+
+    #[test]
+    fn p05() {
+        let configuration = Configuration::from(vec![
+            (Robot::Red, Position::from((2, 4))),
+            (Robot::Orange, Position::from((3, 3))),
+            (Robot::Green, Position::from((1, 1))),
+            (Robot::Purple, Position::from((3, 0))),
+        ]);
+        let target = Target::from((Robot::Red, Position::from((2, 2))));
+        let solver = IterativeDeepening::from(Depth::Finite(4));
+
+        let solution = solver.solve(&configuration, &target);
+
+        assert!(solution.is_some())
+    }
+
+
+    #[test]
+    fn p06() {
+        let configuration = Configuration::from(vec![
+            (Robot::Red, Position::from((2, 4))),
+            (Robot::Orange, Position::from((0, 3))),
+            (Robot::Green, Position::from((2, 2))),
+            (Robot::Purple, Position::from((2, 1))),
+        ]);
+        let target = Target::from((Robot::Red, Position::from((2, 2))));
+        let solver = IterativeDeepening::from(Depth::Finite(4));
+
+        let solution = solver.solve(&configuration, &target);
+
+        assert!(solution.is_some())
+    }
+
+    #[test]
+    fn p07() {
+        let configuration = Configuration::from(vec![
+            (Robot::Red, Position::from((2, 3))),
+            (Robot::Orange, Position::from((0, 3))),
+            (Robot::Green, Position::from((3, 3))),
+            (Robot::Purple, Position::from((2, 0))),
+        ]);
+        let target = Target::from((Robot::Red, Position::from((2, 2))));
+        let solver = IterativeDeepening::from(Depth::Finite(4));
+
+        let solution = solver.solve(&configuration, &target);
+
+        assert!(solution.is_some())
+    }
+
+    #[test]
+    fn p08() {
+        let configuration = Configuration::from(vec![
+            (Robot::Red, Position::from((4, 2))),
+            (Robot::Orange, Position::from((2, 3))),
+            (Robot::Green, Position::from((0, 2))),
+            (Robot::Purple, Position::from((2, 0))),
+        ]);
+        let target = Target::from((Robot::Red, Position::from((2, 2))));
+        let solver = IterativeDeepening::from(Depth::Finite(4));
+
+        let solution = solver.solve(&configuration, &target);
+
+        assert!(solution.is_some())
+    }
+
+    #[test]
+    fn p09() {
+        let configuration = Configuration::from(vec![
+            (Robot::Red, Position::from((4, 3))),
+            (Robot::Orange, Position::from((1, 4))),
+            (Robot::Green, Position::from((0, 1))),
+            (Robot::Purple, Position::from((2, 1))),
+        ]);
+        let target = Target::from((Robot::Red, Position::from((2, 2))));
+        let solver = IterativeDeepening::from(Depth::Finite(5));
+
+        let solution = solver.solve(&configuration, &target);
+
+        assert!(solution.is_some())
+    }
+
+    #[test]
+    fn p10() {
+        let configuration = Configuration::from(vec![
+            (Robot::Red, Position::from((3, 1))),
+            (Robot::Orange, Position::from((3, 3))),
+            (Robot::Green, Position::from((1, 3))),
+            (Robot::Purple, Position::from((0, 1))),
+        ]);
+        let target = Target::from((Robot::Red, Position::from((2, 2))));
+        let solver = IterativeDeepening::from(Depth::Finite(5));
+
+        let solution = solver.solve(&configuration, &target);
+
+        assert!(solution.is_some())
+    }
+}
+
 mod beginner {
     use super::*;
     #[test]
@@ -694,6 +853,7 @@ mod expert {
         assert!(solution.is_some())
     }
 
+    #[ignore]
     #[test]
     fn p39() {
         let configuration = Configuration::from(vec![
