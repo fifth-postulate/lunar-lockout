@@ -764,6 +764,7 @@ mod expert {
         assert!(solution.is_some())
     }
 
+    #[ignore]
     #[test]
     fn p34() {
         let configuration = Configuration::from(vec![
@@ -835,6 +836,7 @@ mod expert {
         assert!(solution.is_some())
     }
 
+    #[ignore]
     #[test]
     fn p38() {
         let configuration = Configuration::from(vec![
@@ -872,6 +874,7 @@ mod expert {
         assert!(solution.is_some())
     }
 
+    #[ignore]
     #[test]
     fn p40() {
         let configuration = Configuration::from(vec![
