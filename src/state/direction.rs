@@ -1,3 +1,5 @@
+use std::fmt::{Display, Formatter, Result};
+
 use crate::state::position::{Absolutable, Position};
 
 #[derive(PartialEq, Eq, Hash, Debug)]
@@ -16,6 +18,18 @@ impl Compass {
             Compass::South => Compass::North,
             Compass::West => Compass::East,
         }
+    }
+}
+
+impl Display for Compass {
+    fn fmt(&self, f: &mut Formatter<'_>) -> Result {
+        let representation = match self {
+            Compass::North => "↑",
+            Compass::East => "→",
+            Compass::South => "↓",
+            Compass::West => "←",
+        };
+        write!(f, "{}", representation)
     }
 }
 

@@ -17,7 +17,9 @@ fn main() {
     let target = Target::from((Robot::Red, Position::from((2, 2))));
     let solver = IterativeDeepening::from(Depth::Finite(9));
 
-    let solution = solver.solve(&configuration, &target);
-
-    println!("{:?}", solution);
+    if let Some(solution) = solver.solve(&configuration, &target) {
+        println!("{}", solution);
+    } else {
+        println!("Unsolvable");
+    }
 }
