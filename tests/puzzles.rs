@@ -3,7 +3,7 @@ extern crate lunarlockout;
 use lunarlockout::{
     solver::{
         ids::{Depth, IterativeDeepening},
-        Solver, Target,
+        Solution, Solver, Target,
     },
     state::{
         command::Command, configuration::Configuration, direction::Compass, position::Position,
@@ -26,6 +26,7 @@ mod preflight {
 
         assert!(solution.is_some());
     }
+
     #[test]
     fn p02() {
         let configuration = Configuration::from(vec![
@@ -87,7 +88,6 @@ mod preflight {
 
         assert!(solution.is_some())
     }
-
 
     #[test]
     fn p06() {
@@ -188,12 +188,12 @@ mod beginner {
 
         assert_eq!(
             solution,
-            Some(vec![
+            Some(Solution::from(vec![
                 Command::from((Robot::Red, Compass::North)),
                 Command::from((Robot::Red, Compass::West)),
                 Command::from((Robot::Red, Compass::South)),
                 Command::from((Robot::Red, Compass::West)),
-            ])
+            ]))
         )
     }
 
@@ -213,14 +213,14 @@ mod beginner {
 
         assert_eq!(
             solution,
-            Some(vec![
+            Some(Solution::from(vec![
                 Command::from((Robot::Red, Compass::North)),
                 Command::from((Robot::Red, Compass::East)),
                 Command::from((Robot::Red, Compass::North)),
                 Command::from((Robot::Red, Compass::East)),
                 Command::from((Robot::Red, Compass::South)),
                 Command::from((Robot::Red, Compass::West)),
-            ])
+            ]))
         )
     }
 

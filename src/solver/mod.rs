@@ -50,12 +50,29 @@ where
     }
 }
 
+#[derive(Debug, PartialEq, Eq)]
+pub struct Solution {
+    commands: Vec<Command>,
+}
+
+impl Solution {
+    fn push(&mut self, command: Command) {
+        self.commands.push(command)
+    }
+
+    fn reverse(&mut self) {
+        self.commands.reverse()
+    }
+}
+
+impl From<Vec<Command>> for Solution {
+    fn from(commands: Vec<Command>) -> Self {
+        Self { commands }
+    }
+}
+
 pub trait Solver {
-    fn solve<T>(
-        &self,
-        configuration: &Configuration<T>,
-        target: &Target<T>,
-    ) -> Option<Vec<Command>>
+    fn solve<T>(&self, configuration: &Configuration<T>, target: &Target<T>) -> Option<Solution>
     where
         T: PartialEq
             + Eq

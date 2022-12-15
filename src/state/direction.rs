@@ -40,3 +40,39 @@ where
 pub trait Moveable {
     fn move_to(&self, direction: &Compass) -> Self;
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn target_to_a_compass_direction_is_reachable_in_that_direction() {
+        let origin = Position::from((0, 0));
+
+        assert!((&origin, &Compass::North).reaches(&Position::from((0, 4))));
+        assert!((&origin, &Compass::East).reaches(&Position::from((4, 0))));
+        assert!((&origin, &Compass::South).reaches(&Position::from((0, -4))));
+        assert!((&origin, &Compass::West).reaches(&Position::from((-4, 0))));
+    }
+
+    #[test]
+    fn target_to_a_compass_direction_is_not_reachable_from_an_other_direction() {
+        let origin = Position::from((0, 0));
+
+        assert!(!(&origin, &Compass::North).reaches(&Position::from((4, 0))));
+        assert!(!(&origin, &Compass::North).reaches(&Position::from((0, -4))));
+        assert!(!(&origin, &Compass::North).reaches(&Position::from((-4, 0))));
+
+        assert!(!(&origin, &Compass::East).reaches(&Position::from((0, 4))));
+        assert!(!(&origin, &Compass::East).reaches(&Position::from((0, -4))));
+        assert!(!(&origin, &Compass::East).reaches(&Position::from((-4, 0))));
+
+        assert!(!(&origin, &Compass::South).reaches(&Position::from((0, 4))));
+        assert!(!(&origin, &Compass::South).reaches(&Position::from((0, 4))));
+        assert!(!(&origin, &Compass::South).reaches(&Position::from((-4, 0))));
+
+        assert!(!(&origin, &Compass::West).reaches(&Position::from((0, 4))));
+        assert!(!(&origin, &Compass::West).reaches(&Position::from((4, 0))));
+        assert!(!(&origin, &Compass::West).reaches(&Position::from((0, -4))));
+    }
+}

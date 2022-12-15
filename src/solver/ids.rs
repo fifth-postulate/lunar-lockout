@@ -1,7 +1,6 @@
 use crate::{
-    solver::{Solver, Target},
+    solver::{Solution, Solver, Target},
     state::{
-        command::Command,
         configuration::Configuration,
         position::{Absolutable, Decrementable, Incrementable},
     },
@@ -29,7 +28,7 @@ impl IterativeDeepening {
         depth: Depth,
         configuration: &Configuration<T>,
         target: &Target<T>,
-    ) -> Option<Vec<Command>>
+    ) -> Option<Solution>
     where
         T: PartialEq
             + Eq
@@ -45,7 +44,7 @@ impl IterativeDeepening {
     {
         if depth == Depth::Finite(0) {
             if target.reached_in(configuration) {
-                Some(vec![])
+                Some(Solution::from(vec![]))
             } else {
                 None
             }
@@ -67,7 +66,7 @@ impl IterativeDeepening {
 }
 
 impl Solver for IterativeDeepening {
-    fn solve<T>(&self, configuration: &Configuration<T>, target: &Target<T>) -> Option<Vec<Command>>
+    fn solve<T>(&self, configuration: &Configuration<T>, target: &Target<T>) -> Option<Solution>
     where
         T: PartialEq
             + Eq
@@ -156,7 +155,7 @@ mod tests {
     use super::*;
     use crate::{
         solver::Target,
-        state::{direction::Compass, position::Position, robot::Robot},
+        state::{command::Command, direction::Compass, position::Position, robot::Robot},
     };
 
     #[test]
@@ -179,10 +178,10 @@ mod tests {
 
         assert_eq!(
             solution,
-            Some(vec![
+            Some(Solution::from(vec![
                 Command::from((Robot::Red, Compass::East)),
                 Command::from((Robot::Red, Compass::North))
-            ])
+            ]))
         )
     }
 }
